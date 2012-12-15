@@ -8,11 +8,12 @@ import time
 
 class BotIRCbyGHOST(ircbot.SingleServerIRCBot):
     def __init__(self):
+        print "OwnYourIRCBot"
         name = raw_input('nom de votre bot:')
         serveur = raw_input('serveur irc:')
         port = input('port:')
         ircbot.SingleServerIRCBot.__init__(self, [(serveur, port)],
-                                           name, "Codé par GHOSTnew")
+                                           name, "OwnYourIRCBot by GHOSTnew")
         self.insultes = ["merde","shit","pute","bitch","elle est baisable","she´s good to fuck","cette fille a des oeufs sur le plat","il paraît que je fais bien l´amour","they say, im good in bed","dégage","Fuck off","va te faire foutre enculé","fuck off asshole","baise toi","f*ck you","mon cul","bite me","Ta mère est une pute!","your mother´s a bitch","tete de con","shitface","gros cul","fat ass","honky tonk","Salsalop","dirty bitch","fils de pute","son of a b*tch","Ta gueule!","Shut up"]
         print 'connection en cours'
 

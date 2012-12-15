@@ -21,6 +21,8 @@ class BotIRCbyGHOST(ircbot.SingleServerIRCBot):
     def on_welcome(self, serv, ev):
         global your_target
         your_target = "no target"
+        global your_video
+        your_video = "no video"
         global owner
         owner = raw_input('votre pseudo sur IRC:')
         global chan
@@ -32,6 +34,7 @@ class BotIRCbyGHOST(ircbot.SingleServerIRCBot):
         serv.join("#"+chan)
     def on_pubmsg(self, serv, ev):
         global your_target
+        global your_video
         global owner
         auteur = irclib.nm_to_n(ev.source())
         canal = ev.target()
@@ -74,8 +77,24 @@ class BotIRCbyGHOST(ircbot.SingleServerIRCBot):
             serv.privmsg(canal, message[5:400])
         elif message == "&random" :
             serv.privmsg(canal, "\00304\002Voici un nombre : " + str(random.random()) + "\002")
+        elif message[0:10] == "&set-video" and owner == auteur:
+            your_video = message[11:100]
+            serv.privmsg(canal, "video défini ;)")
+        elif message[0:10] == "&set-video" and owner != auteur:
+            serv.privmsg(canal, "\00304\002Vous n'avez pas les privilège sur ce bot\002")
+        elif message == "&video":
+            serv.privmsg(canal, "video: " + your_video)
+        elif message == "&tools":
+            serv.privmsg(canal, "\00310\002hping:\002 \00301http://www.hping.org/ ]-[ OS: Linux, FreeBSD, NetBSD, OpenBSD, Solaris, MacOs X, Windows")  
+            serv.privmsg(canal, "\00310\002Slowloris:\002 \00301http://ha.ckers.org/slowloris/ ]-[ OS: Linux")
+            serv.privmsg(canal, "\00310\002HOIC:\002 \00301http://www.mediafire.com/?jkc7924jsa0161z ]-[ OS: Windows")
+            serv.privmsg(canal, "\00310\002Pyloris:\002 \00301http://sourceforge.net/projects/pyloris/ ]-[ OS: Windows, MacOs X, Linux")
+            serv.privmsg(canal, "\00310\002THC-SSL-DOS:\002 \00301http://www.thc.org/thc-ssl-dos/ ]-[ OS: Windows, Linux")
+            serv.privmsg(canal, "\00310\002Torshammer:\002 \00301http://packetstormsecurity.org/files/98831 ]-[ OS: Linux")
+            serv.privmsg(canal, "Use protection (tor, vpn, vps, etc.)")
+            serv.privmsg(canal, "We are not responsible for any of the actions nor do we condone using these tools to intentionally cause harm or damage to any website(s) or server(s). Do so at your own risk.")
         elif message == "&copy" :
-            serv.privmsg(canal, "OwnYourIRCBot v1.2")
+            serv.privmsg(canal, "OwnYourIRCBot v1.3")
             serv.privmsg(canal, "Team Mondial Production 2012")
             serv.privmsg(canal, "by GHOSTnew")
             serv.privmsg(canal, "avec la participation de lumir")
@@ -90,6 +109,9 @@ class BotIRCbyGHOST(ircbot.SingleServerIRCBot):
             serv.privmsg(canal, "\00310\002&time\002 \00315,01(affiche la date et l'heure)")
             serv.privmsg(canal, "\00310\002&kick\002 \00315,01(kick un joueur)")
             serv.privmsg(canal, "\00310\002&random\002 \00315,01(génère un nombre aléatoire entre 0 et 1)")
+            serv.privmsg(canal, "\00310\002&video\002 \00315,01(affiche le lien d'une video)")
+            serv.privmsg(canal, "\00310\002&set-video\002 \00315,01(définit une video)")
+            serv.privmsg(canal, "\00310\002&tools\002 \00315,01(affiche les logiciels pour DDoS)")
             serv.privmsg(canal, "\00310\002&say\002 \00315,01(permet de faire dire quelque chose au bot)")
             serv.privmsg(canal, "\00310\002&copy\002 \00315,01(affiche les credits)")
             serv.privmsg(canal, "\00310\002&quit\002 \00315,01(pour déconnecter le bot)")

@@ -75,6 +75,7 @@ class BotIRCbyGHOST(ircbot.SingleServerIRCBot):
         elif message == "&random" :
             serv.privmsg(canal, "\00304\002Voici un nombre : " + str(random.random()) + "\002")
         elif message == "&copy" :
+            serv.privmsg(canal, "OwnYourIRCBot v1.2")
             serv.privmsg(canal, "Team Mondial Production 2012")
             serv.privmsg(canal, "by GHOSTnew")
             serv.privmsg(canal, "avec la participation de lumir")
